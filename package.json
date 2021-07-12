@@ -12,6 +12,10 @@
     "start": "stan-builder -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "dist",
+    "typings"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/planjs/mobx-persist.git"
@@ -33,6 +37,9 @@
   },
   "peerDependencies": {
     "mobx": "5.x"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
     "mobx": "5.15.4",
