@@ -7308,11 +7308,6 @@ mobx-react@6.1.8:
   dependencies:
     mobx-react-lite "^1.4.2"
 
-mobx@5.15.7:
-  version "5.15.7"
-  resolved "https://registry.nlark.com/mobx/download/mobx-5.15.7.tgz#b9a5f2b6251f5d96980d13c78e9b5d8d4ce22665"
-  integrity sha1-uaXytiUfXZaYDRPHjptdjUziJmU=
-
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.nlark.com/move-concurrently/download/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"

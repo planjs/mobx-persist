@@ -8,9 +8,11 @@
   "typings": "typings/index.d.ts",
   "scripts": {
     "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src",
+    "prepublishOnly": "npm run release",
+    "release": "./scripts/release.sh",
     "prepare": "stan-builder",
     "start": "stan-builder -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\""
   },
   "files": [
     "dist",
@@ -45,6 +47,7 @@
     "mobx": "5.15.4",
     "stan-builder": "^0.9.12",
     "@planjs/fabric": "^0.0.76",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "standard-version": "^9.0.0"
   }
 }

@@ -5,7 +5,7 @@ import mergeObservables from "./merge-observables";
 import type IStorage from "./adapters/storage";
 import LocalStorage from "./adapters/localstorage";
 
-export interface HydrateResultOptions {
+export interface CreateHydrateOptions {
   /**
    * Storage adapters
    * @default LocalStorage
@@ -43,13 +43,13 @@ export interface HydrateResult<T> extends Promise<T> {
   clear: () => void;
 }
 
-function hydrate({
+function create({
   storage = new LocalStorage(),
   jsonify = true,
   debounce = 0,
   sync = true,
-}: HydrateResultOptions = {}) {
-  return function <T extends Object>(
+}: CreateHydrateOptions = {}) {
+  return function hydrate<T extends Object>(
     /**
      * persist key
      */
@@ -86,9 +86,7 @@ function hydrate({
             return store;
           })
         ) as HydrateResult<T>;
-
       promise.rehydrate = hydration;
-
       // Multiple tab sync state
       if (sync) {
         storage.onChange = (changeKey) => {
@@ -121,4 +119,4 @@ function hydrate({
   };
 }
 
-export default hydrate;
+export default create;

@@ -1,7 +1,7 @@
 import { action, observable, reaction } from "mobx";
-import { persist, hydrate } from "../../../";
+import { persist, create } from "../../../";
 
-const hydrateStore = hydrate();
+const hydrate = create();
 
 class CounterStore {
   @persist @observable count = 0;
@@ -24,7 +24,7 @@ reaction(
   }
 );
 
-const persistCounterStore = hydrateStore("@planjs/persist", counterStore);
+const persistCounterStore = hydrate("@planjs/persist", counterStore);
 
 persistCounterStore.then((store) => {
   console.log("persist count", store.count);
