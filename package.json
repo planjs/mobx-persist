@@ -1,0 +1,43 @@
+{
+  "name": "@planjs/mobx-persist",
+  "version": "0.0.1",
+  "description": "mobx-persist",
+  "sideEffects": false,
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "typings": "typings/index.d.ts",
+  "scripts": {
+    "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src",
+    "prepare": "stan-builder",
+    "start": "stan-builder -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/planjs/mobx-persist.git"
+  },
+  "keywords": [
+    "mobx",
+    "mobx-persist",
+    "persist"
+  ],
+  "license": "ISC",
+  "author": "fupeng <fupenglxy@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/planjs/mobx-persist/issues"
+  },
+  "homepage": "https://github.com/planjs/mobx-persist#readme",
+  "dependencies": {
+    "serializr": "1.5.4",
+    "@babel/runtime": "^7.x"
+  },
+  "peerDependencies": {
+    "mobx": "5.x"
+  },
+  "devDependencies": {
+    "mobx": "5.15.4",
+    "stan-builder": "^0.9.12",
+    "@planjs/fabric": "^0.0.76",
+    "typescript": "^4.3.5"
+  }
+}

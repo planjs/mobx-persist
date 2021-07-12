@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "preserveConstEnums": true,
+    "rootDir": "./src/",
+    "outDir": "lib",
+    "declaration": true,
+    "declarationDir": "typings",
+    "lib": ["esnext", "dom"]
+  },
+  "include": ["./src/"]
+}
