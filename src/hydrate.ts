@@ -1,4 +1,4 @@
-import { IReactionDisposer } from "mobx/lib/internal";
+import type { IReactionDisposer } from "mobx/lib/internal";
 import { getDefaultModelSchema, serialize, update } from "serializr";
 import { action, reaction } from "mobx";
 import mergeObservables from "./merge-observables";
@@ -50,9 +50,16 @@ function hydrate({
   sync = true,
 }: HydrateResultOptions = {}) {
   return function <T extends Object>(
+    /**
+     * persist key
+     */
     key: string,
+    /**
+     * mobx store
+     */
     store: T,
-    initialState: any = {}
+    initialState: any = {},
+    customArgs: any = {}
   ): HydrateResult<T> {
     const schema = getDefaultModelSchema(store as any);
 
@@ -62,27 +69,30 @@ function hydrate({
         .then((d: any) => (!jsonify ? d : JSON.parse(d)))
         .then(
           action(`[mobx-persist ${key}] LOAD_DATA`, (persisted: any) => {
-            mergeObservables(store, initialState);
             if (persisted && typeof persisted === "object") {
-              // TODO 可以直接使用 mergeObservables 需要测试
-              if (window && window.window === window) {
-                if (schema) {
-                  update(schema, store, persisted);
-                }
-              } else {
-                mergeObservables(store, persisted);
-              }
+              update(
+                schema,
+                store,
+                persisted,
+                (err) => {
+                  if (err) {
+                    console.error("[mobx-persist] Mobx update error", err);
+                  }
+                },
+                customArgs
+              );
             }
+            mergeObservables(store, initialState);
             return store;
           })
         ) as HydrateResult<T>;
 
       promise.rehydrate = hydration;
 
+      // Multiple tab sync state
       if (sync) {
-        storage.onChange = (changeKey, newValue, oldValue) => {
+        storage.onChange = (changeKey) => {
           if (changeKey === key) {
-            // TODO diff
             promise.rehydrate();
           }
         };

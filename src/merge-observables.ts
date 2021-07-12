@@ -1,9 +1,4 @@
-import {
-  isObservableMap,
-  isObservableArray,
-  isObservableObject,
-  set,
-} from "mobx";
+import { isObservableMap, isObservableArray, isObservableObject } from "mobx";
 
 function mergeObservables<A extends Object, B extends Object>(
   target: A,
@@ -22,7 +17,7 @@ function mergeObservables<A extends Object, B extends Object>(
         ) {
           if (isObservableMap(t[key])) t[key].merge(s[key]);
           else if (isObservableArray(t[key])) t[key].replace(s[key]);
-          else if (isObservableObject(t[key])) set(t[key], s[key]);
+          else if (isObservableObject(t[key])) mergeObservables(t[key], s[key]);
         } else if (s[key] !== undefined) {
           t[key] = s[key];
         }
