@@ -2,7 +2,7 @@ import type { IReactionDisposer } from "mobx/lib/internal";
 import { getDefaultModelSchema, serialize, update } from "serializr";
 import { action, reaction } from "mobx";
 import mergeObservables from "./merge-observables";
-import type IStorage from "./adapters/storage";
+import IStorage from "./adapters/storage";
 import LocalStorage from "./adapters/localstorage";
 
 export interface CreateHydrateOptions {
@@ -43,12 +43,20 @@ export interface HydrateResult<T> extends Promise<T> {
   clear: () => void;
 }
 
-function create({
-  storage = new LocalStorage(),
-  jsonify = true,
-  debounce = 0,
-  sync = true,
-}: CreateHydrateOptions = {}) {
+/**
+ * Create hydrate function
+ * @param opts {CreateHydrateOptions}
+ */
+function create(opts: CreateHydrateOptions = {}) {
+  const {
+    storage = new LocalStorage(),
+    jsonify = true,
+    debounce = 0,
+    sync = true,
+  } = opts;
+  if (!(storage instanceof IStorage)) {
+    throw new Error("storage has to implement `IStorage` all method");
+  }
   return function hydrate<T extends Object>(
     /**
      * persist key
