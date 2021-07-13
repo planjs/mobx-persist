@@ -1,10 +1,11 @@
-import { action, observable, reaction } from "mobx";
-import { persist, create } from "../../../";
+import { action, observable, reaction } from 'mobx';
+import { persist, create } from '../../../';
 
 const hydrate = create();
 
 class CounterStore {
   @persist @observable count = 0;
+  @persist('list') @observable trace: number[] = [];
 
   @action add = () => {
     this.count++;
@@ -13,21 +14,24 @@ class CounterStore {
   @action sub = () => {
     this.count--;
   };
+
+  @action record = () => {
+    this.trace.push(this.count)
+  }
 }
 
 const counterStore = new CounterStore();
 
-reaction(
-  () => counterStore.count,
-  (count) => {
-    console.log("change", count);
-  }
-);
-
-const persistCounterStore = hydrate("@planjs/persist", counterStore);
+const persistCounterStore = hydrate('@planjs/persist', counterStore);
 
 persistCounterStore.then((store) => {
-  console.log("persist count", store.count);
+  console.log('persist count', store.count);
+  reaction(
+    () => counterStore.count,
+    () => {
+      counterStore.record()
+    },
+  );
 });
 
 export { persistCounterStore };
