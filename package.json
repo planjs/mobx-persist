@@ -5,6 +5,8 @@
   "sideEffects": false,
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
+  "umd:main": "lib/index.umd.js",
+  "unpkg": "lib/index.umd.min.js",
   "typings": "typings/index.d.ts",
   "scripts": {
     "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src",

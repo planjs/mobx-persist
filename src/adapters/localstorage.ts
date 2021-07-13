@@ -3,9 +3,13 @@ import IStorage from "./storage";
 class LocalStorage extends IStorage {
   constructor() {
     super();
-    window.addEventListener("storage", (ev) => {
-      this.onChange?.(ev.key, ev.newValue, ev.oldValue);
-    });
+    try {
+      window.addEventListener("storage", (ev) => {
+        this.onChange?.(ev.key, ev.newValue, ev.oldValue);
+      });
+    } catch (e) {
+      console.error("[mobx-persist] LocalStorage error", e);
+    }
   }
 
   getItem(key: string): Promise<string> {
