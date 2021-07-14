@@ -61,7 +61,13 @@ function create(opts: CreateHydrateOptions = {}) {
      * mobx store
      */
     store: T,
+    /**
+     * defaults values
+     */
     initialState: any = {},
+    /**
+     * @link {serialize}
+     */
     customArgs: any = {},
   ): HydrateResult<T> {
     const schema = getDefaultModelSchema(store as any);
