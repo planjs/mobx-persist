@@ -108,10 +108,16 @@ function create(opts: CreateHydrateOptions = {}) {
 
       // Multiple tab sync state
       if (sync) {
+        let timer: ReturnType<typeof setTimeout>;
         storage.onChange = (changeKey) => {
           if (changeKey === key) {
-            promise.rehydrate();
             console.warn(`[mobx-persist] change key ${changeKey}`);
+            timer && clearTimeout(timer);
+            // If it keeps changing to prevent call stack overflow
+            timer = setTimeout(() => {
+              promise.rehydrate();
+              timer = null;
+            }, debounce || 0);
           }
         };
       }
@@ -125,7 +131,9 @@ function create(opts: CreateHydrateOptions = {}) {
     };
     result.dispose = reaction(
       () => serialize(schema, store),
-      (data: any) => storage.setItem(key, !jsonify ? data : JSON.stringify(data)),
+      (data: any) => {
+        return storage.setItem(key, !jsonify ? data : JSON.stringify(data));
+      },
       { delay: debounce },
     );
     return result;
