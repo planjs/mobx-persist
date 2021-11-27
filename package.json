@@ -1,6 +1,6 @@
 {
   "name": "@planjs/mobx-persist",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "enhance-mobx-persist",
   "sideEffects": false,
   "main": "dist/index.cjs.js",
