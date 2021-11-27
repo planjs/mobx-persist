@@ -40,15 +40,15 @@
     "@babel/runtime": "^7.x"
   },
   "peerDependencies": {
-    "mobx": "5.x"
+    "mobx": ">5.x"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
     "mobx": "5.15.4",
-    "stan-builder": "^0.9.12",
-    "@planjs/fabric": "^0.0.76",
+    "stan-builder": "^0.13.3",
+    "@planjs/fabric": "^0.0.90",
     "typescript": "^4.3.5",
     "standard-version": "^9.0.0"
   }

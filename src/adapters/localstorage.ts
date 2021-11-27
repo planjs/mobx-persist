@@ -1,22 +1,22 @@
-import IStorage from "./storage";
+import IStorage from './storage';
 
 class LocalStorage extends IStorage {
   constructor() {
     super();
     try {
-      window.addEventListener("storage", (ev) => {
+      window.addEventListener('storage', (ev) => {
         this.onChange?.(ev.key, ev.newValue, ev.oldValue);
       });
     } catch (e) {
-      console.error("[mobx-persist] LocalStorage error", e);
+      console.error('[mobx-persist] LocalStorage error', e);
     }
   }
 
-  getItem(key: string): Promise<string> {
+  getItem(key: string): Promise<string | null> {
     return new Promise((resolve, reject) => {
       try {
         const value = window.localStorage.getItem(key);
-        resolve(value!);
+        resolve(value);
       } catch (err) {
         reject(err);
       }
