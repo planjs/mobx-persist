@@ -2,7 +2,7 @@
  * Basic Storage
  */
 export default abstract class IStorage {
-  getItem(key: string): Promise<string> {
+  getItem(key: string): Promise<string | null> {
     throw new Error('IStorage has to implement `getItem` method');
   }
   removeItem(key: string): Promise<void> {
@@ -14,5 +14,5 @@ export default abstract class IStorage {
   clear(): Promise<void> {
     throw new Error('IStorage has to implement `clear` method');
   }
-  onChange(key: string, newValue: string, oldValue: string): void {}
+  onChange?(key: string, newValue: string, oldValue: string): void {}
 }

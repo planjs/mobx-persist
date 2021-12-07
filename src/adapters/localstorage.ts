@@ -12,11 +12,11 @@ class LocalStorage extends IStorage {
     }
   }
 
-  getItem(key: string): Promise<string> {
+  getItem(key: string): Promise<string | null> {
     return new Promise((resolve, reject) => {
       try {
         const value = window.localStorage.getItem(key);
-        resolve(value!);
+        resolve(value);
       } catch (err) {
         reject(err);
       }

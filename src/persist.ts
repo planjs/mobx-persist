@@ -13,12 +13,12 @@ function persist(...args: any[]): any {
   const [a, b] = args;
   if (a in types) {
     return serializable(types[a as Types](b));
-  } else if (args.length === 1) {
-    return (target: any) => persistObject(target, a);
-  } else {
-    // eslint-disable-next-line prefer-spread
-    return serializable.apply(null, args);
   }
+  if (args.length === 1) {
+    return (target: any) => persistObject(target, a);
+  }
+  // eslint-disable-next-line prefer-spread
+  return serializable.apply(null, args);
 }
 
 export default persist;
