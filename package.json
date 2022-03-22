@@ -40,7 +40,7 @@
     "@babel/runtime": "^7.x"
   },
   "peerDependencies": {
-    "mobx": ">5.x"
+    "mobx": ">=5.x"
   },
   "publishConfig": {
     "access": "public"
